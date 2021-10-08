@@ -16,6 +16,11 @@ hook global WinSetOption filetype=odin %{
     require-module odin
 
     set-option window static_words %opt{odin_static_words}
+
+    set-option window comment_line '//'
+    set-option window comment_block_begin '/*'
+    set-option window comment_block_end '*/'
+
     hook window InsertChar \n -group odin-indent odin-indent-on-new-line
 }
 
