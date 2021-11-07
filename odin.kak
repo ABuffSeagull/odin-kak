@@ -45,12 +45,13 @@ add-highlighter shared/odin/comment_line region '//' $ fill comment
 add-highlighter shared/odin/code/ regex %{\b(?i)(0b[01]+|0o[0-7]+|0x[0-9a-f_]+|-?[0-9_]*(\.[0-9_]+(e[0-9_]+)?)?i?)\b} 0:value
 
 evaluate-commands %sh{
-    keywords='package import proc for in if else switch case defer when
-              break continue fallthrough return dynamic distinct struct
-              enum bit_set using not_in union map or_else or_return context
-              foreign where'
-
-    attributes='#no_bounds_check #bounds_check #assert #align #packed #raw_union #soa #unroll'
+    keywords='asm auto_cast bit_set break case cast context continue defer distinct do
+              dynamic else enum fallthrough for foreign if import in map not_in or_else
+              or_return package proc return struct switch transmute typeid union using when
+              where'
+    attributes='#packed #raw_union #align #no_nil #partial #no_alias #caller_location #c_vararg
+                #optional_ok #type #bounds_check #no_bounds_check #defined #file #line
+                #procedure #load #load_or'
 
     types='bool b8 b16 b32 b64
            int i8 i16 i32 i64 i128
@@ -68,9 +69,16 @@ evaluate-commands %sh{
 
     values='false true nil'
 
-    functions='len cast transmute auto_cast size_of incl excl type_of typeid_of
-               type_info_of cap soa_zip soa_unzip new make alloc new_clone free
-               free_all delete realloc'
+    functions='abs align_of append append_elem append_elems append_string #assert assert cap
+               card clamp clear clear_dynamic_array clear_map complex conj copy delete
+               delete_cstring delete_dynamic_array delete_key delete_map delete_slice
+               delete_string excl excl_bit_set excl_elem excl_elems expand_to_tuple free imag
+               incl incl_bit_set incl_elem incl_elems init_global_temporary_allocator len
+               #location make make_dynamic_array make_dynamic_array_len
+               make_dynamic_array_len_cap make_map make_slice max min new new_clone offset_of
+               ordered_remove panic pop real reserve reserve_dynamic_array reserve_map resize
+               resize_dynamic_array size_of swizzle typeid_of type_info_of type_of
+               unimplemented unordered_remove unreachable'
 
     join() { sep=$2; eval set -- $1; IFS="$sep"; echo "$*"; }
 
